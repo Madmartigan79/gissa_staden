@@ -139,7 +139,7 @@ export default function Home() {
               className="w-full px-5 py-4 bg-slate-900 border-2 border-slate-800 rounded-xl focus:outline-none focus:border-cyan-500 text-lg transition-all shadow-inner"
               value={guess}
               onChange={handleInputChange}
-              onKeyDown={(e) => e.key === 'Enter' && handleGuess()}
+              onKeyDown={(e) => e.key === 'Enter' && handleGuess(e)}
               placeholder="Vilken stad är det här?"
             />
             
