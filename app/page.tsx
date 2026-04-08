@@ -28,7 +28,7 @@ export default function Home() {
 
   const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     const value = e.target.value;
     setGuess(value);
 
