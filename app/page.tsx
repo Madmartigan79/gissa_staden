@@ -11,7 +11,7 @@ const getDirectionEmoji = (bearing: number) => {
 
 export default function Home() {
   // targetCity börjar som null tills sidan har laddats
-  const [targetCity, setTargetCity] = useState(null); 
+  const [targetCity, setTargetCity] = useState<any>(null); 
   const [zoom, setZoom] = useState(14);
   const [guess, setGuess] = useState("");
   const [guesses, setGuesses] = useState([]);
