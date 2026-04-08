@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { getDistance, getGreatCircleBearing } from 'geolib';
 import { CITIES } from './cities';
 
-const getDirectionEmoji = (bearing) => {
+const getDirectionEmoji = (bearing: number) => {
   const directions = ['⬆️', '↗️', '➡️', '↘️', '⬇️', '↙️', '⬅️', '↖️'];
   const index = Math.round(bearing / 45) % 8;
   return directions[index];
