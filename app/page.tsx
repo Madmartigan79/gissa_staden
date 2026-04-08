@@ -17,7 +17,7 @@ export default function Home() {
   const [guesses, setGuesses] = useState([]);
   const [gameState, setGameState] = useState("playing");
   
-  const [filteredCities, setFilteredCities] = useState([]);
+  const [filteredCities, setFilteredCities] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   // useEffect körs en gång när sidan laddas för att slumpa en stad
@@ -48,7 +48,7 @@ export default function Home() {
     setShowSuggestions(false);
   };
 
-  const handleGuess = () => {
+  const handleGuess = (e: any) => {
     if (gameState !== "playing" || !guess || !targetCity) return;
 
     const guessedCity = CITIES.find(c => c.name.toLowerCase() === guess.toLowerCase());
