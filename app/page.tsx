@@ -14,7 +14,7 @@ export default function Home() {
   const [targetCity, setTargetCity] = useState<any>(null); 
   const [zoom, setZoom] = useState(14);
   const [guess, setGuess] = useState("");
-  const [guesses, setGuesses] = useState([]);
+  const [guesses, setGuesses] = useState<any[]>([]);
   const [gameState, setGameState] = useState("playing");
   
   const [filteredCities, setFilteredCities] = useState<any[]>([]);
