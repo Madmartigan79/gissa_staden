@@ -23,6 +23,7 @@ export default function Home() {
   // useEffect körs en gång när sidan laddas för att slumpa en stad
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * CITIES.length);
+    
     setTargetCity(CITIES[randomIndex]);
   }, []);
 
