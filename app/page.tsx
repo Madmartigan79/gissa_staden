@@ -43,7 +43,7 @@ export default function Home() {
     }
   };
 
-  const handleSuggestionClick = (cityName) => {
+  const handleSuggestionClick = (cityName: any) => {
     setGuess(cityName);
     setShowSuggestions(false);
   };
