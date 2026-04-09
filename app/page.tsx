@@ -17,11 +17,11 @@ export default function Home() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
-  // Startar inzoomat på gatunivå
+  // STARTZOOM ÄNDRAD TILL 16.5 (för att se byggnader tydligt)
   const [viewState, setViewState] = useState({
     longitude: 0,
     latitude: 20,
-    zoom: 13.5 
+    zoom: 16.5 
   });
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function Home() {
     setViewState({
       longitude: selected.lon,
       latitude: selected.lat,
-      zoom: 13.5
+      zoom: 16.5
     });
   }, []);
 
@@ -99,19 +99,19 @@ export default function Home() {
       setGuess("");
       setShowSuggestions(false);
 
-      if (guessedCity.name === targetCity.name || updatedGuesses.length >= 6) {
+      // ÄNDRAT TILL 5 FÖRSÖK
+      if (guessedCity.name === targetCity.name || updatedGuesses.length >= 5) {
         setGameOver(true);
-        // NÄR SPELET ÄR ÖVER: Zooma ut så man ser hela världen
         setViewState({
           longitude: 0,
           latitude: 20,
           zoom: 1.5
         });
       } else {
-        // NÄR GISSNINGEN ÄR FEL: Zooma ut lite mjukare (1.5 steg)
+        // Justerad utzoomning för att passa den nya startnivån
         setViewState((prevState) => ({
           ...prevState,
-          zoom: Math.max(prevState.zoom - 1.5, 2)
+          zoom: Math.max(prevState.zoom - 2.5, 2)
         }));
       }
     }
@@ -121,22 +121,18 @@ export default function Home() {
     <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100 font-sans">
       <div className="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-3xl shadow-2xl border-4 border-white bg-gray-200">
         
-        {/* KARTAN */}
         {targetCity && (
           <MapAny
             {...viewState}
             onMove={(evt: any) => setViewState(evt.viewState)}
-            
             dragPan={false}
             scrollZoom={false}
             doubleClickZoom={false}
             touchZoomRotate={false}
-            
             style={{ width: '100%', height: '100%' }}
-            mapStyle="mapbox://styles/mapbox/satellite-v9" // Satellitkartan är kvar!
+            mapStyle="mapbox://styles/mapbox/satellite-v9"
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
           >
-            {/* PRICKAR FÖR GISSNINGAR */}
             {guesses.map((g: any, i: number) => {
               const cityData = CITIES.find((c) => c.name === g.name);
               if (!cityData) return null;
@@ -147,7 +143,6 @@ export default function Home() {
               );
             })}
 
-            {/* GRÖN PRICK FÖR RÄTT SVAR */}
             {gameOver && (
               <MarkerAny longitude={targetCity.lon} latitude={targetCity.lat}>
                 <div className="w-8 h-8 bg-green-500 rounded-full border-4 border-white shadow-xl flex items-center justify-center z-50 animate-bounce">
@@ -158,23 +153,22 @@ export default function Home() {
           </MapAny>
         )}
 
-        {/* TITEL-BOX (Din ljusa svenska design) */}
         <div className="absolute top-6 left-6 z-10 bg-white/90 backdrop-blur-md p-5 rounded-2xl shadow-lg border border-white/50">
-          <h1 className="text-2xl font-black text-gray-900 tracking-tight leading-none">GISSA STADEN</h1>
+          <h1 className="text-2xl font-black text-gray-900 tracking-tight leading-none">GISSA STADEN 🌍</h1>
           <div className="flex items-center mt-3">
             <div className="h-2 w-24 bg-gray-200 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-blue-500 transition-all duration-700" 
-                style={{ width: `${(guesses.length / 6) * 100}%` }}
+                // PROGRESS BAR JUSTERAD TILL 5
+                style={{ width: `${(guesses.length / 5) * 100}%` }}
               ></div>
             </div>
             <span className="ml-3 text-xs font-bold text-gray-600 uppercase tracking-wider">
-              {6 - guesses.length} försök kvar
+              {5 - guesses.length} försök kvar
             </span>
           </div>
         </div>
 
-        {/* INPUT-BOX */}
         {!gameOver && (
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 w-full max-w-sm px-6">
             <div className="bg-white/95 backdrop-blur-xl p-5 rounded-2xl shadow-2xl border border-white/50">
@@ -212,7 +206,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* GAME OVER MODAL */}
         {gameOver && (
           <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/30 backdrop-blur-sm px-6">
             <div className="bg-white p-8 rounded-3xl shadow-2xl text-center max-w-sm w-full">
@@ -220,7 +213,7 @@ export default function Home() {
                 {guesses[guesses.length - 1]?.name === targetCity?.name ? "🎉 RÄTT!" : "⌛ SLUT!"}
               </h2>
               <p className="text-gray-600 mb-6 font-medium">
-                Staden vi sökte var <span className="text-blue-600 font-bold">{targetCity?.name}</span>.
+                Staden var <span className="text-blue-600 font-bold">{targetCity?.name}</span>.
               </p>
               <button 
                 onClick={() => window.location.reload()}
@@ -232,7 +225,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* TIDIGARE GISSNINGAR */}
         <div className="absolute top-6 right-6 z-10 flex flex-col gap-2 items-end">
           {guesses.map((g: any, i: number) => (
             <div key={i} className="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-3 border border-white/10">
