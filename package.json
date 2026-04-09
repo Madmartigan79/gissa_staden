@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "geolib": "^3.3.4",
+    "mapbox-gl": "latest",
+    "react-map-gl": "latest",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
