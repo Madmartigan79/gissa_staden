@@ -100,84 +100,72 @@ export default function Home() {
 
   const mapUrl = `https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/${targetCity.lon},${targetCity.lat},${zoom},0,0/800x500?access_token=${token}`;
 
-  return (
-    <main className="flex min-h-screen flex-col items-center p-8 bg-slate-950 text-white font-sans">
-      <h1 className="text-5xl font-black mb-2 tracking-tighter">GISSA STADEN</h1>
-      <p className="text-slate-400 mb-8 font-medium text-lg">{5 - guesses.length} försök kvar.</p>
+return (
+  <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
+    <div className="relative w-full max-w-4xl h-[70vh] overflow-hidden rounded-2xl shadow-2xl border-4 border-white">
       
-      <div className="relative mb-8 group">
-        <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-        <img 
-          src={mapUrl} 
-          alt="Satellitvy" 
-          className="relative w-[800px] h-[500px] object-cover rounded-xl shadow-2xl border border-white/10"
-        />
-        
-        {gameState !== "playing" && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-xl backdrop-blur-sm animate-in fade-in duration-500">
-            <div className="text-center">
-              <h2 className="text-4xl font-bold mb-2">
-                {gameState === "won" ? "Snyggt! 🎉" : "Spelet slut! 💀"}
-              </h2>
-              <p className="text-xl">Rätt stad var: <span className="font-bold text-cyan-400">{targetCity.name}</span></p>
-              <button 
-                onClick={() => window.location.reload()} 
-                className="mt-6 bg-white text-black px-6 py-2 rounded-full font-bold hover:bg-cyan-400 transition-colors"
+      {/* KARTAN (Bakgrund) */}
+      <Map
+        initialViewState={{
+          longitude: 18.0686,
+          latitude: 59.3293,
+          zoom: 4
+        }}
+        style={{ width: '100%', height: '100%' }}
+        mapStyle="mapbox://styles/mapbox/dark-v11"
+        mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
+      >
+        {/* TITEL-BOX (Uppe till vänster) */}
+        <div className="absolute top-6 left-6 z-10 bg-white/80 backdrop-blur-md p-5 rounded-xl shadow-lg border border-white/50">
+          <h1 className="text-2xl font-black text-gray-900 tracking-tight">GISSA STADEN 🇸🇪</h1>
+          <div className="flex items-center mt-2">
+            <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-blue-500 transition-all duration-500" 
+                style={{ width: `${(guesses.length / 6) * 100}%` }}
+              ></div>
+            </div>
+            <span className="ml-3 text-sm font-bold text-gray-700 whitespace-nowrap">
+              {6 - guesses.length} liv kvar
+            </span>
+          </div>
+        </div>
+
+        {/* INPUT-BOX (Nere i mitten) */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 w-full max-w-md px-6">
+          <div className="bg-white/90 backdrop-blur-lg p-6 rounded-2xl shadow-2xl border border-white/50">
+            <div className="flex flex-col gap-3">
+              <input
+                type="text"
+                value={guess}
+                onChange={handleInputChange}
+                onKeyDown={(e) => e.key === 'Enter' && handleGuess(e)}
+                placeholder="Skriv in en stad..."
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:outline-none text-gray-800 font-medium transition-all"
+              />
+              <button
+                onClick={handleGuess}
+                className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transform active:scale-95 transition-all"
               >
-                Spela igen
+                Gissa nu!
               </button>
             </div>
           </div>
-        )}
-      </div>
-
-      {gameState === "playing" && (
-        <div className="flex gap-3 mb-10 w-full max-w-md relative">
-          <div className="relative flex-1">
-            <input 
-              type="text"
-              className="w-full px-5 py-4 bg-slate-900 border-2 border-slate-800 rounded-xl focus:outline-none focus:border-cyan-500 text-lg transition-all shadow-inner"
-              value={guess}
-              onChange={handleInputChange}
-              onKeyDown={(e) => e.key === 'Enter' && handleGuess(e)}
-              placeholder="Vilken stad är det här?"
-            />
-            
-            {showSuggestions && filteredCities.length > 0 && (
-              <ul className="absolute top-full left-0 w-full bg-slate-800 border border-slate-700 rounded-xl mt-2 z-10 max-h-48 overflow-y-auto shadow-xl">
-                {filteredCities.map((city) => (
-                  <li 
-                    key={city.name} 
-                    onClick={() => handleSuggestionClick(city.name)}
-                    className="px-5 py-3 cursor-pointer hover:bg-slate-700 transition-colors border-b border-slate-700/50 last:border-0"
-                  >
-                    {city.name}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          <button 
-            onClick={handleGuess}
-            className="bg-cyan-600 hover:bg-cyan-500 px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg active:scale-95"
-          >
-            Gissa
-          </button>
         </div>
-      )}
 
-      <div className="w-full max-w-md space-y-3">
-        {guesses.map((g, i) => (
-          <div key={i} className="flex items-center justify-between p-4 bg-slate-900/50 border border-slate-800 rounded-xl animate-in slide-in-from-bottom-2">
-            <span className="font-bold text-lg">{g.name}</span>
-            <div className="flex items-center gap-4">
-              <span className="text-slate-400">{g.distance} km</span>
-              <span className="text-2xl">{g.direction}</span>
-            </div>
+        {/* LISTA MED TIDIGARE GISSNINGAR (Uppe till höger) */}
+        {guesses.length > 0 && (
+          <div className="absolute top-6 right-6 z-10 flex flex-col gap-2">
+            {guesses.map((g, i) => (
+              <div key={i} className="bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center justify-between border border-white/10 min-w-[150px]">
+                <span>{g.name}</span>
+                <span className="ml-2">{g.distance}km {g.direction}</span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </main>
-  );
+        )}
+      </Map>
+    </div>
+  </main>
+);
 }
