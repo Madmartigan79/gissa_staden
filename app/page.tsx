@@ -98,14 +98,16 @@ export default function Home() {
       <div className="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-3xl shadow-2xl border-4 border-white bg-gray-200">
         
         {/* KARTAN */}
+        {/* KARTAN */}
         <MapAny
           initialViewState={{
-            longitude: 18.0686,
-            latitude: 59.3293,
-            zoom: 4
+            longitude: 16.0, // Centrerat över Sverige (mellan öst/väst)
+            latitude: 62.0,  // Centrerat över Sverige (mellan norr/söder)
+            zoom: 4.8        // Lite mer inzoomat (testa att ändra mellan 4.5 och 5.5 om det behövs)
           }}
+          interactive={false} // <-- Detta låser kartan helt!
           style={{ width: '100%', height: '100%' }}
-          mapStyle="mapbox://styles/mapbox/dark-v11"
+          mapStyle="mapbox://styles/mapbox/outdoors-v12" // <-- Betydligt ljusare karta
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
         />
 
