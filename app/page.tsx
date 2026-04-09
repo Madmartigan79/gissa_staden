@@ -17,7 +17,6 @@ export default function Home() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
-  // Vår kontrollpanel för kameran.
   // Vi startar extremt inzoomat (zoom 13.5)
   const [viewState, setViewState] = useState({
     longitude: 18.0686,
@@ -26,7 +25,6 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // Välj stad när spelet laddas
     const randomIndex = Math.floor(Math.random() * CITIES.length);
     const selected = CITIES[randomIndex];
     setTargetCity(selected);
@@ -104,12 +102,19 @@ export default function Home() {
 
       if (guessedCity.name === targetCity.name || updatedGuesses.length >= 6) {
         setGameOver(true);
-        // NÄR SPELET ÄR ÖVER: Zooma ut över hela Sverige så man ser alla markeringar!
+        // NÄR SPELET ÄR ÖVER: Zooma ut över hela Sverige
         setViewState({
           longitude: 16.0,
           latitude: 62.0,
           zoom: 4.8
         });
+      } else {
+        // NÄR GISSNINGEN ÄR FEL: Zooma ut kartan ett snäpp!
+        // Vi drar av 1.5 i zoom för varje felgissning så man ser mer av omgivningen.
+        setViewState((prevState) => ({
+          ...prevState,
+          zoom: prevState.zoom - 1.5
+        }));
       }
     }
   };
@@ -121,12 +126,9 @@ export default function Home() {
         {/* KARTAN */}
         {targetCity && (
           <MapAny
-            // "Spredar" in våra inställningar för att tvinga kartan att lyda vår viewState
             {...viewState}
-            // Måste finnas för att biblioteket ska förstå att vi kontrollerar den
             onMove={(evt: any) => setViewState(evt.viewState)}
             
-            // Fysiska lås så att användaren inte kan scrolla iväg
             dragPan={false}
             scrollZoom={false}
             doubleClickZoom={false}
@@ -158,7 +160,7 @@ export default function Home() {
           </MapAny>
         )}
 
-        {/* TITEL-BOX (Uppe till vänster) */}
+        {/* TITEL-BOX */}
         <div className="absolute top-6 left-6 z-10 bg-white/90 backdrop-blur-md p-5 rounded-2xl shadow-lg border border-white/50">
           <h1 className="text-2xl font-black text-gray-900 tracking-tight leading-none">GISSA STADEN 🇸🇪</h1>
           <div className="flex items-center mt-3">
@@ -174,7 +176,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* INPUT-BOX (Nere i mitten) */}
+        {/* INPUT-BOX */}
         {!gameOver && (
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 w-full max-w-sm px-6">
             <div className="bg-white/95 backdrop-blur-xl p-5 rounded-2xl shadow-2xl border border-white/50">
@@ -232,7 +234,7 @@ export default function Home() {
           </div>
         )}
 
-        {/* TIDIGARE GISSNINGAR (Uppe till höger) */}
+        {/* TIDIGARE GISSNINGAR */}
         <div className="absolute top-6 right-6 z-10 flex flex-col gap-2 items-end">
           {guesses.map((g: any, i: number) => (
             <div key={i} className="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-3 border border-white/10">
