@@ -7,7 +7,7 @@ import * as geolib from "geolib";
 import { CITIES } from "./cities";
 
 const MapAny = Map as any;
-const MarkerAny = Marker as any; // För att slippa TS-klagomål på Markern
+const MarkerAny = Marker as any;
 
 export default function Home() {
   const [targetCity, setTargetCity] = useState<any>(null);
@@ -17,23 +17,25 @@ export default function Home() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
-  // Ny state som styr EXAKT var kartan tittar och hur inzoomad den är
+  // Vår kontrollpanel för kameran.
+  // Vi startar extremt inzoomat (zoom 13.5)
   const [viewState, setViewState] = useState({
     longitude: 18.0686,
     latitude: 59.3293,
-    zoom: 12.5 
+    zoom: 13.5 
   });
 
   useEffect(() => {
+    // Välj stad när spelet laddas
     const randomIndex = Math.floor(Math.random() * CITIES.length);
     const selected = CITIES[randomIndex];
     setTargetCity(selected);
     
-    // Lås kameran på den hemliga staden direkt när spelet startar!
+    // Tvinga kameran att flytta till den valda staden DIREKT
     setViewState({
       longitude: selected.lon,
       latitude: selected.lat,
-      zoom: 12.5
+      zoom: 13.5
     });
   }, []);
 
@@ -102,7 +104,7 @@ export default function Home() {
 
       if (guessedCity.name === targetCity.name || updatedGuesses.length >= 6) {
         setGameOver(true);
-        // MAGIN HÄNDER HÄR: Zooma ut över hela Sverige när spelet är slut för att visa alla prickar!
+        // NÄR SPELET ÄR ÖVER: Zooma ut över hela Sverige så man ser alla markeringar!
         setViewState({
           longitude: 16.0,
           latitude: 62.0,
@@ -119,12 +121,12 @@ export default function Home() {
         {/* KARTAN */}
         {targetCity && (
           <MapAny
-            // Tvingar kartan att stanna på de koordinater vi bestämmer i viewState
-            longitude={viewState.longitude}
-            latitude={viewState.latitude}
-            zoom={viewState.zoom}
+            // "Spredar" in våra inställningar för att tvinga kartan att lyda vår viewState
+            {...viewState}
+            // Måste finnas för att biblioteket ska förstå att vi kontrollerar den
+            onMove={(evt: any) => setViewState(evt.viewState)}
             
-            // Låser alla möjligheter att röra kartan
+            // Fysiska lås så att användaren inte kan scrolla iväg
             dragPan={false}
             scrollZoom={false}
             doubleClickZoom={false}
@@ -134,7 +136,7 @@ export default function Home() {
             mapStyle="mapbox://styles/mapbox/light-v11"
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
           >
-            {/* RITA UT RÖDA PRICKAR FÖR ALLA GISSNINGAR */}
+            {/* PRICKAR FÖR GISSNINGAR */}
             {guesses.map((g: any, i: number) => {
               const cityData = CITIES.find((c) => c.name === g.name);
               if (!cityData) return null;
@@ -145,10 +147,10 @@ export default function Home() {
               );
             })}
 
-            {/* RITA UT EN GRÖN PRICK PÅ RÄTT STAD NÄR SPELET ÄR ÖVER */}
+            {/* GRÖN PRICK FÖR RÄTT SVAR */}
             {gameOver && (
               <MarkerAny longitude={targetCity.lon} latitude={targetCity.lat}>
-                <div className="w-6 h-6 bg-green-500 rounded-full border-2 border-white shadow-xl flex items-center justify-center z-50">
+                <div className="w-8 h-8 bg-green-500 rounded-full border-4 border-white shadow-xl flex items-center justify-center z-50 animate-bounce">
                   ⭐
                 </div>
               </MarkerAny>
@@ -212,7 +214,7 @@ export default function Home() {
 
         {/* GAME OVER MODAL */}
         {gameOver && (
-          <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/20 backdrop-blur-sm px-6">
+          <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/30 backdrop-blur-sm px-6">
             <div className="bg-white p-8 rounded-3xl shadow-2xl text-center max-w-sm w-full">
               <h2 className="text-3xl font-black text-gray-900 mb-2">
                 {guesses[guesses.length - 1]?.name === targetCity?.name ? "🎉 RÄTT!" : "⌛ SLUT!"}
