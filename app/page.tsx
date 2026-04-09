@@ -42,7 +42,8 @@ export default function Home() {
 
     if (value.length > 0) {
       const filtered = CITIES.filter((city) =>
-        city.name.toLowerCase().startsWith(value.toLowerCase())
+        // Bytte ut .startsWith mot .includes här nedanför!
+        city.name.toLowerCase().includes(value.toLowerCase())
       );
       setFilteredCities(filtered);
       setShowSuggestions(true);
