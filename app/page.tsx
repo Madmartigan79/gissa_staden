@@ -155,7 +155,7 @@ export default function Home() {
         )}
 
         <div className="absolute top-6 left-6 z-10 bg-white/90 backdrop-blur-md p-5 rounded-2xl shadow-lg border border-white/50">
-          <h1 className="text-2xl font-black text-gray-900 tracking-tight leading-none">GISSA STADEN 🌍</h1>
+          <h1 className="text-2xl font-black text-gray-900 tracking-tight leading-none">GISSA STADEN</h1>
           <div className="flex items-center mt-3">
             <div className="h-2 w-24 bg-gray-200 rounded-full overflow-hidden">
               <div 
