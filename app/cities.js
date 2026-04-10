@@ -14,6 +14,11 @@ export const CITIES = [
   { name: "Lund, Sverige", lat: 55.7047, lon: 13.1910 },
   { name: "Karlstad, Sverige", lat: 59.4022, lon: 13.5115 },
   { name: "Lofsdalen, Sverige", lat: 62.1121, lon: 13.2774 },
+  { name: "Halmstad, Sverige", lat: 56.6745, lon: 12.8578 },
+  { name: "Sundsvall, Sverige", lat: 62.3908, lon: 17.3069 },
+  { name: "Östersund, Sverige", lat: 63.1767, lon: 14.6361 },
+  { name: "Kiruna, Sverige", lat: 67.8558, lon: 20.2253 },
+  { name: "Visby, Sverige", lat: 57.6348, lon: 18.2948 },
 
   // --- NORDEN ---
   { name: "Oslo, Norge", lat: 59.9139, lon: 10.7522 },
@@ -23,6 +28,9 @@ export const CITIES = [
   { name: "Helsingfors, Finland", lat: 60.1695, lon: 24.9354 },
   { name: "Åbo, Finland", lat: 60.4518, lon: 22.2666 },
   { name: "Reykjavik, Island", lat: 64.1466, lon: -21.9426 },
+  { name: "Trondheim, Norge", lat: 63.4305, lon: 10.3951 },
+  { name: "Tammerfors, Finland", lat: 61.4978, lon: 23.7610 },
+  { name: "Odense, Danmark", lat: 55.4038, lon: 10.4024 },
 
   // --- EUROPA ---
   { name: "Amsterdam, Nederländerna", lat: 52.3676, lon: 4.9041 },
@@ -55,6 +63,16 @@ export const CITIES = [
   { name: "Wien, Österrike", lat: 48.2082, lon: 16.3738 },
   { name: "Vilnius, Litauen", lat: 54.6872, lon: 25.2797 },
   { name: "Zürich, Schweiz", lat: 47.3769, lon: 8.5417 },
+  { name: "Venedig, Italien", lat: 45.4408, lon: 12.3155 },
+  { name: "Florens, Italien", lat: 43.7696, lon: 11.2558 },
+  { name: "Hamburg, Tyskland", lat: 53.5511, lon: 9.9937 },
+  { name: "Köln, Tyskland", lat: 50.9375, lon: 6.9603 },
+  { name: "Marseille, Frankrike", lat: 43.2965, lon: 5.3698 },
+  { name: "Lyon, Frankrike", lat: 45.7640, lon: 4.8357 },
+  { name: "Porto, Portugal", lat: 41.1579, lon: -8.6291 },
+  { name: "Valencia, Spanien", lat: 39.4699, lon: -0.3763 },
+  { name: "Manchester, Storbritannien", lat: 53.4808, lon: -2.2426 },
+  { name: "Rotterdam, Nederländerna", lat: 51.9244, lon: 4.4777 },
 
   // --- NORDAMERIKA ---
   { name: "Atlanta, USA", lat: 33.7490, lon: -84.3880 },
@@ -75,6 +93,13 @@ export const CITIES = [
   { name: "Toronto, Kanada", lat: 43.6510, lon: -79.3470 },
   { name: "Vancouver, Kanada", lat: 49.2827, lon: -123.1207 },
   { name: "Washington DC, USA", lat: 38.9072, lon: -77.0369 },
+  { name: "Philadelphia, USA", lat: 39.9526, lon: -75.1652 },
+  { name: "Phoenix, USA", lat: 33.4484, lon: -112.0740 },
+  { name: "San Diego, USA", lat: 32.7157, lon: -117.1611 },
+  { name: "Austin, USA", lat: 30.2672, lon: -97.7431 },
+  { name: "Detroit, USA", lat: 42.3314, lon: -83.0458 },
+  { name: "Ottawa, Kanada", lat: 45.4215, lon: -75.6972 },
+  { name: "Calgary, Kanada", lat: 51.0447, lon: -114.0719 },
 
   // --- SYDAMERIKA ---
   { name: "Bogota, Colombia", lat: 4.7110, lon: -74.0721 },
@@ -86,6 +111,10 @@ export const CITIES = [
   { name: "Rio de Janeiro, Brasilien", lat: -22.9068, lon: -43.1729 },
   { name: "Santiago, Chile", lat: -33.4489, lon: -70.6693 },
   { name: "São Paulo, Brasilien", lat: -23.5505, lon: -46.6333 },
+  { name: "Brasília, Brasilien", lat: -15.7975, lon: -47.8919 },
+  { name: "Salvador, Brasilien", lat: -12.9714, lon: -38.5014 },
+  { name: "La Paz, Bolivia", lat: -16.4897, lon: -68.1193 },
+  { name: "Asunción, Paraguay", lat: -25.2637, lon: -57.5759 },
 
   // --- ASIEN & MELLANÖSTERN ---
   { name: "Bangkok, Thailand", lat: 13.7563, lon: 100.5018 },
@@ -107,6 +136,17 @@ export const CITIES = [
   { name: "Taipei, Taiwan", lat: 25.0330, lon: 121.5654 },
   { name: "Teheran, Iran", lat: 35.6892, lon: 51.3890 },
   { name: "Tokyo, Japan", lat: 35.6762, lon: 139.6503 },
+  { name: "Osaka, Japan", lat: 34.6937, lon: 135.5023 },
+  { name: "Kyoto, Japan", lat: 35.0116, lon: 135.7681 },
+  { name: "Guangzhou, Kina", lat: 23.1291, lon: 113.2644 },
+  { name: "Ho Chi Minh-staden, Vietnam", lat: 10.8231, lon: 106.6297 },
+  { name: "Dhaka, Bangladesh", lat: 23.8103, lon: 90.4125 },
+  { name: "Karachi, Pakistan", lat: 24.8607, lon: 67.0011 },
+  { name: "Tel Aviv, Israel", lat: 32.0853, lon: 34.7818 },
+  { name: "Amman, Jordanien", lat: 31.9454, lon: 35.9284 },
+  { name: "Beirut, Libanon", lat: 33.8938, lon: 35.5018 },
+  { name: "Doha, Qatar", lat: 25.2854, lon: 51.5310 },
+  { name: "Abu Dhabi, Förenade Arabemiraten", lat: 24.4539, lon: 54.3773 },
 
   // --- AFRIKA ---
   { name: "Accra, Ghana", lat: 5.6037, lon: -0.1870 },
@@ -119,6 +159,11 @@ export const CITIES = [
   { name: "Kapstaden, Sydafrika", lat: -33.9249, lon: 18.4241 },
   { name: "Lagos, Nigeria", lat: 6.5244, lon: 3.3792 },
   { name: "Nairobi, Kenya", lat: -1.2864, lon: 36.8172 },
+  { name: "Alexandria, Egypten", lat: 31.2001, lon: 29.9187 },
+  { name: "Pretoria, Sydafrika", lat: -25.7479, lon: 28.2293 },
+  { name: "Tunis, Tunisien", lat: 36.8065, lon: 10.1815 },
+  { name: "Marrakech, Marocko", lat: 31.6295, lon: -7.9811 },
+  { name: "Kinshasa, DR Kongo", lat: -4.4419, lon: 15.2663 },
 
   // --- OCEANIEN ---
   { name: "Auckland, Nya Zeeland", lat: -36.8485, lon: 174.7633 },
@@ -126,5 +171,7 @@ export const CITIES = [
   { name: "Melbourne, Australien", lat: -37.8136, lon: 144.9631 },
   { name: "Perth, Australien", lat: -31.9505, lon: 115.8605 },
   { name: "Sydney, Australien", lat: -33.8688, lon: 151.2093 },
-  { name: "Wellington, Nya Zeeland", lat: -41.2865, lon: 174.7762 }
+  { name: "Wellington, Nya Zeeland", lat: -41.2865, lon: 174.7762 },
+  { name: "Adelaide, Australien", lat: -34.9285, lon: 138.6007 },
+  { name: "Christchurch, Nya Zeeland", lat: -43.5321, lon: 172.6362 }
 ];
