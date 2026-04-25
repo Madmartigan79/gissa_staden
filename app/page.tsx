@@ -230,7 +230,7 @@ export default function Home() {
           {guesses.map((g: any, i: number) => (
             <div key={i} className="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-3 border border-white/10">
               <span className="uppercase tracking-wide">{g.name}</span>
-              <span className="bg-white/20 px-2 py-0.5 rounded text-xs">{g.distance}mil</span>
+              <span className="bg-white/20 px-2 py-0.5 rounded text-xs">{g.distance} mil</span>
               <span>{g.direction}</span>
             </div>
           ))}
