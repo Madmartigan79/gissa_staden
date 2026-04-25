@@ -226,12 +226,13 @@ export default function Home() {
           </div>
         )}
 
-        <div className="absolute top-6 right-6 z-10 flex flex-col gap-2 items-end">
+        {/* TIDIGARE GISSNINGAR */}
+        <div className="absolute top-6 right-6 z-10 flex flex-col gap-3 items-end">
           {guesses.map((g: any, i: number) => (
-            <div key={i} className="bg-black/80 backdrop-blur-md text-white px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-3 border border-white/10">
+            <div key={i} className="bg-black/80 backdrop-blur-md text-white px-5 py-3 rounded-2xl text-lg font-black flex items-center gap-4 border border-white/10 shadow-lg">
               <span className="uppercase tracking-wide">{g.name}</span>
-              <span className="bg-white/20 px-2 py-0.5 rounded text-xs">{g.distance} mil</span>
-              <span>{g.direction}</span>
+              <span className="bg-white/20 px-3 py-1 rounded-lg text-base">{g.distance} mil</span>
+              <span className="text-2xl">{g.direction}</span>
             </div>
           ))}
         </div>
