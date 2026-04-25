@@ -77,12 +77,12 @@ export default function Home() {
     );
 
     if (guessedCity && targetCity) {
-      const distance = Math.round(
-        geolib.getDistance(
-          { latitude: guessedCity.lat, longitude: guessedCity.lon },
-          { latitude: targetCity.lat, longitude: targetCity.lon }
-        ) / 100
-      );
+      const distanceInKm = geolib.getDistance(
+        { latitude: guessedCity.lat, longitude: guessedCity.lon },
+        { latitude: targetCity.lat, longitude: targetCity.lon }
+      ) / 1000;
+
+      const distance = Math.round(distanceInKm / 10);
 
       const bearing = geolib.getGreatCircleBearing(
         { latitude: guessedCity.lat, longitude: guessedCity.lon },
