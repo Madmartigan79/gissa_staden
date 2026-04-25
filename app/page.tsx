@@ -120,7 +120,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100 font-sans">
-      <div className="relative w-full max-w-6xl h-[90vh] overflow-hidden rounded-3xl shadow-2xl border-4 border-white bg-gray-200">
+      <div className="relative w-full max-w-[90rem] h-[90vh] overflow-hidden rounded-3xl shadow-2xl border-4 border-white bg-gray-200">
         
         {targetCity && (
           <MapAny
