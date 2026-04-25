@@ -81,7 +81,7 @@ export default function Home() {
         geolib.getDistance(
           { latitude: guessedCity.lat, longitude: guessedCity.lon },
           { latitude: targetCity.lat, longitude: targetCity.lon }
-        ) / 1000
+        ) / 100
       );
 
       const bearing = geolib.getGreatCircleBearing(
